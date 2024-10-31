@@ -149,7 +149,7 @@ namespace AuraExample
         {
             gpuCounters.ForEach(x => x.NextValue());
 
-            Thread.Sleep(300);
+            Thread.Sleep(500);
 
             var result = gpuCounters.Sum(x => x.NextValue());
 

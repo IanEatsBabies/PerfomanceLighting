@@ -50,13 +50,18 @@ namespace AuraExample
             {
                 try
                 {
-                    _cpuUsage = GetCpuUsage();
+                    var cpuUsage = GetCpuUsage();
+                    if ((cpuUsage > -1f) && (cpuUsage < 101))
+                        _cpuUsage = cpuUsage;
                 }
                 catch { }
                 try 
                 { 
                     var gpuCounters = GetGPUCounters();
-                    _gpuUsage = GetGPUUsage(gpuCounters);
+                    //_gpuUsage = GetGPUUsage(gpuCounters);
+                    var gpuUsage = GetGPUUsage(gpuCounters);
+                    if((gpuUsage > -1f)&&(gpuUsage<200))
+                        _gpuUsage = gpuUsage;
                 }
                 catch { }
                 Console.WriteLine("CPU Usage: {0}% - GPU Usage: {1}%", ((float)Math.Round(_cpuUsage)), ((float)Math.Round(_gpuUsage)));

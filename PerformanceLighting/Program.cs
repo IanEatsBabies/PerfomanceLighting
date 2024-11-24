@@ -14,8 +14,12 @@ namespace AuraExample
         private static List<float> samples = new List<float>();
         private static BackgroundWorker worker = new BackgroundWorker();
 
-        private static float _cpuUsage = 0f;
-        private static float _gpuUsage = 0f;
+        private static float _cpuUsage1 = 1f;
+        private static float _cpuUsage2 = 1f;
+        private static float _cpuUsage3 = 1f;
+        private static float _gpuUsage1 = 1f;
+        private static float _gpuUsage2 = 1f;
+        private static float _gpuUsage3 = 1f;
 
         static void Main(string[] args)
         {
@@ -52,7 +56,12 @@ namespace AuraExample
                 {
                     var cpuUsage = GetCpuUsage();
                     if ((cpuUsage > -1f) && (cpuUsage < 101))
-                        _cpuUsage = cpuUsage;
+                    {
+                        _cpuUsage3 = _cpuUsage2;
+                        _cpuUsage2 = _cpuUsage1;
+                        _cpuUsage1 = cpuUsage;
+
+                    }
                 }
                 catch { Console.WriteLine("CPU Usage error"); }
                 try 
@@ -61,11 +70,16 @@ namespace AuraExample
                     //_gpuUsage = GetGPUUsage(gpuCounters);
                     var gpuUsage = GetGPUUsage(gpuCounters);
                     if((gpuUsage > -1f)&&(gpuUsage<200))
-                        _gpuUsage = gpuUsage;
+                    {
+                        _gpuUsage3 = _gpuUsage2;
+                        _gpuUsage2 = _gpuUsage1;
+                        _gpuUsage1 = gpuUsage;
+
+                    }
                 }
                 catch { Console.WriteLine("GPU Usage error"); }
-                Console.WriteLine("CPU Usage: {0}% - GPU Usage: {1}%", ((float)Math.Round(_cpuUsage)), ((float)Math.Round(_gpuUsage)));
-                SetLedColors(_cpuUsage, _gpuUsage);
+                Console.WriteLine("CPU Usage: {0}% - GPU Usage: {1}%", ((float)Math.Round(_cpuUsage1)), ((float)Math.Round(_gpuUsage1)));
+                SetLedColors(((_cpuUsage1 + _cpuUsage2 + _cpuUsage3) /3), ((_gpuUsage1 + _gpuUsage2 + _gpuUsage3) / 3));
                 //System.Threading.Thread.Sleep(1000); // Pause for 1 second
             }
 
